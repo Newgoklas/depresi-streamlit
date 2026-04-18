@@ -75,14 +75,7 @@ input_dict["Job Satisfaction"] = job_sat
 input_dict["Work/Study Hours"] = hours
 input_dict["Financial Stress"] = financial
 
-input_df = pd.DataFrame([input_data])
-input_df = input_df[columns]        # WAJIB urutan sama
-input_df = input_df.fillna(0)
 
-input_scaled = scaler.transform(input_df)
-
-pred = model.predict(input_scaled)[0]
-proba = model.predict_proba(input_scaled)[0]
 # DUMMY MAPPING
 if "Gender_Male" in input_dict and gender == "Male":
     input_dict["Gender_Male"] = 1
