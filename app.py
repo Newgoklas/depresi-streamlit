@@ -8,6 +8,11 @@ model = joblib.load("model.pkl")
 scaler = joblib.load("scaler.pkl")
 columns = joblib.load("columns.pkl")
 
+# Fix for sklearn version compatibility
+for estimator in model.estimators_:
+    if not hasattr(estimator, 'monotonic_cst'):
+        estimator.monotonic_cst = None
+
 # ===== CONFIG =====
 st.set_page_config(page_title="Prediksi Depresi", layout="wide")
 
@@ -74,7 +79,6 @@ input_dict["Study Satisfaction"] = study_sat
 input_dict["Job Satisfaction"] = job_sat
 input_dict["Work/Study Hours"] = hours
 input_dict["Financial Stress"] = financial
-
 
 # DUMMY MAPPING
 if "Gender_Male" in input_dict and gender == "Male":
